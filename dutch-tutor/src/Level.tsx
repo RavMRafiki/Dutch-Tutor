@@ -10,7 +10,7 @@ interface question {
   correct: string[];
 }
 export default function Level(props: any): ReactElement {
-  const questions: question[]= [
+  const questions: question[] = [
     {
       typeofquest: "translate",
       question: "Translate sentence to english",
@@ -18,18 +18,50 @@ export default function Level(props: any): ReactElement {
       words: ["I", "have", "am", "tomato", "cow", "a"],
       correct: ["I", "have", "a", "cow"],
     },
+    {
+      typeofquest: "translate back",
+      question: "Translate sentence to dutch",
+      sentence: "They throw cabbage",
+      words: ["Ze", "ga", "aardappel", "gooien", "kool"],
+      correct: ["Ze","gooien","kool"],
+    },
   ];
-  let [questionIndex, setQuestionIndex] = useState(0);
+  let [questionIndex, setQuestionIndex] = useState<number>(0);
+  let [answerList, setAnswerList] = useState<string[]>([]);
+  let [wordsToChoseList, setWordsToChoseList] = useState<string[]>(
+    questions[questionIndex].words
+  );
 
+  function handleAdd(word: string, index: number): void {
+    setAnswerList([...answerList, word]);
+    setWordsToChoseList(wordsToChoseList.filter((w, idx) => idx !== index));
+  }
+  function handleRemove(word: string, index: number): void {
+    setAnswerList(answerList.filter((w, idx) => idx !== index));
+    setWordsToChoseList([...wordsToChoseList, word]);
+  }
   return (
     <div className=" justify-center flex items-center flex-col min-h-full w-screen">
       <div className="m-2">{questions[questionIndex].question}</div>
       <div className="text-3xl">{questions[questionIndex].sentence}</div>
-      <div className="flex flex-wrap border w-10/12 h-40 shadow-sm"></div>
+      <div className="flex flex-wrap border w-10/12 h-52 shadow-sm">
+        {answerList.map(
+          (el: string, index: number): ReactElement => (
+            <Word
+              key={index}
+              word={el}
+              index={index}
+              handleClick={handleRemove}
+            />
+          )
+        )}
+      </div>
       <div className="flex flex-wrap">
-        {questions[questionIndex].words.map((el:string):ReactElement => (
-          <Word word={el} />
-        ))}
+        {wordsToChoseList.map(
+          (el: string, index: number): ReactElement => (
+            <Word key={index} word={el} index={index} handleClick={handleAdd} />
+          )
+        )}
       </div>
     </div>
   );
