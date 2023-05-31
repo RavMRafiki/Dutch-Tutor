@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode, useEffect } from "react";
 import { useState } from "react";
 import Word from "./Word";
 
@@ -23,7 +23,7 @@ export default function Level(props: any): ReactElement {
       question: "Translate sentence to dutch",
       sentence: "They throw cabbage",
       words: ["Ze", "ga", "aardappel", "gooien", "kool"],
-      correct: ["Ze","gooien","kool"],
+      correct: ["Ze", "gooien", "kool"],
     },
   ];
   let [questionIndex, setQuestionIndex] = useState<number>(0);
@@ -40,11 +40,21 @@ export default function Level(props: any): ReactElement {
     setAnswerList(answerList.filter((w, idx) => idx !== index));
     setWordsToChoseList([...wordsToChoseList, word]);
   }
+  useEffect(() => {
+    if (questions[questionIndex].correct.toString() === answerList.toString()) {
+      setWordsToChoseList(()=>questions[questionIndex+1].words)
+      setAnswerList(()=>[])
+      setQuestionIndex((previous) => previous + 1);
+    }
+
+    return () => {};
+  }, [answerList]);
+
   return (
-    <div className=" justify-center flex items-center flex-col min-h-full w-screen">
-      <div className="m-2">{questions[questionIndex].question}</div>
-      <div className="text-3xl">{questions[questionIndex].sentence}</div>
-      <div className="flex flex-wrap border w-10/12 h-52 shadow-sm">
+    <div className=" justify-evenly flex items-center flex-col h-5/6">
+      <div className="m-2 mt-10">{questions[questionIndex].question}</div>
+      <div className="text-3xl m-10">{questions[questionIndex].sentence}</div>
+      <div className="flex flex-wrap border w-10/12 h-52 shadow-sm m-5">
         {answerList.map(
           (el: string, index: number): ReactElement => (
             <Word

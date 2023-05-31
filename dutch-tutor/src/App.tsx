@@ -6,7 +6,7 @@ import Level from './Level'
 function App() {
 
   return (
-    <div className=" h-screen">
+    <div className="h-screen">
       <Navbar />
       <Level />
     </div>

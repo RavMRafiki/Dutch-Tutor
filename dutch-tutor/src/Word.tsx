@@ -16,7 +16,7 @@ export default function Word({
     <div>
       <button
         onClick={()=> handleClick(word, index)}
-        className=" p-2 bg-gradient-to-br from-slate-200 rounded-xl m-1 text-2xl font-bold border-slate-800 border shadow-md"
+        className=" p-2 bg-gradient-to-br from-slate-200 rounded-xl m-1 text-2xl font-bold border-slate-800 border shadow-md hover:to-slate-500 hover:text-white"
       >
         {word}
       </button>
