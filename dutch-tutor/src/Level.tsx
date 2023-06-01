@@ -9,7 +9,10 @@ interface question {
   words: string[];
   correct: string[];
 }
-export default function Level(props: any): ReactElement {
+interface Iprops {
+  handleLevelEnd: Function;
+}
+export default function Level({ handleLevelEnd }: Iprops): ReactElement {
   const questions: question[] = [
     {
       typeofquest: "translate",
@@ -49,6 +52,9 @@ export default function Level(props: any): ReactElement {
   }
   useEffect(() => {
     if (questions[questionIndex].correct.toString() === answerList.toString()) {
+      if (questionIndex === questions.length - 1) {
+        handleLevelEnd();
+      }
       setWordsToChoseList(() => questions[questionIndex + 1].words);
       setAnswerList(() => []);
       setQuestionIndex((previous) => previous + 1);
