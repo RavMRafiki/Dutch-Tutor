@@ -25,6 +25,13 @@ export default function Level(props: any): ReactElement {
       words: ["Ze", "ga", "aardappel", "gooien", "kool"],
       correct: ["Ze", "gooien", "kool"],
     },
+    {
+      typeofquest: "translate back",
+      question: "Translate sentence to english",
+      sentence: "Ik ben geen tomaat",
+      words: ["friend", "I", "am", "coconut", "a", "tomato", "not"],
+      correct: ["I", "am", "not", "a", "tomato"],
+    },
   ];
   let [questionIndex, setQuestionIndex] = useState<number>(0);
   let [answerList, setAnswerList] = useState<string[]>([]);
@@ -42,8 +49,8 @@ export default function Level(props: any): ReactElement {
   }
   useEffect(() => {
     if (questions[questionIndex].correct.toString() === answerList.toString()) {
-      setWordsToChoseList(()=>questions[questionIndex+1].words)
-      setAnswerList(()=>[])
+      setWordsToChoseList(() => questions[questionIndex + 1].words);
+      setAnswerList(() => []);
       setQuestionIndex((previous) => previous + 1);
     }
 
