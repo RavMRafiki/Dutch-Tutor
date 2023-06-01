@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { useState } from "react";
 import Word from "./Word";
 
@@ -26,10 +26,10 @@ export default function Level({ handleLevelEnd, currentQuiz }: Iprops): ReactEle
 
   function handleAdd(word: string, index: number): void {
     setAnswerList([...answerList, word]);
-    setWordsToChoseList(wordsToChoseList.filter((w, idx) => idx !== index));
+    setWordsToChoseList(wordsToChoseList.filter((_w, idx) => idx !== index));
   }
   function handleRemove(word: string, index: number): void {
-    setAnswerList(answerList.filter((w, idx) => idx !== index));
+    setAnswerList(answerList.filter((_w, idx) => idx !== index));
     setWordsToChoseList([...wordsToChoseList, word]);
   }
   useEffect(() => {

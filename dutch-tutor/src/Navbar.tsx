@@ -1,4 +1,3 @@
-import React from "react";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 
 export default function Navbar() {

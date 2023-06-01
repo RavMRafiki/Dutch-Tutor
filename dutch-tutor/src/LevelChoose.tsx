@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import LevelChooseElement from "./LevelChooseElement";
 interface IProps {
   levelNames: string[];

@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 interface IProps {
   key: number;
@@ -10,7 +10,6 @@ export default function Word({
   word,
   index,
   handleClick,
-  ...props
 }: IProps): ReactElement {
   return (
     <div>
