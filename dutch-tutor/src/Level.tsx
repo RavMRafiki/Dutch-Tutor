@@ -2,44 +2,26 @@ import React, { ReactElement, ReactNode, useEffect } from "react";
 import { useState } from "react";
 import Word from "./Word";
 
-interface question {
+interface IQuestion {
   typeofquest: string;
   question: string;
   sentence: string;
   words: string[];
   correct: string[];
 }
+interface IQuiz {
+  quizname: string;
+  questions: IQuestion[];
+}
 interface Iprops {
   handleLevelEnd: Function;
+  currentQuiz: IQuiz;
 }
-export default function Level({ handleLevelEnd }: Iprops): ReactElement {
-  const questions: question[] = [
-    {
-      typeofquest: "translate",
-      question: "Translate sentence to english",
-      sentence: "Ik heb een koe",
-      words: ["I", "have", "am", "tomato", "cow", "a"],
-      correct: ["I", "have", "a", "cow"],
-    },
-    {
-      typeofquest: "translate back",
-      question: "Translate sentence to dutch",
-      sentence: "They throw cabbage",
-      words: ["Ze", "ga", "aardappel", "gooien", "kool"],
-      correct: ["Ze", "gooien", "kool"],
-    },
-    {
-      typeofquest: "translate back",
-      question: "Translate sentence to english",
-      sentence: "Ik ben geen tomaat",
-      words: ["friend", "I", "am", "coconut", "a", "tomato", "not"],
-      correct: ["I", "am", "not", "a", "tomato"],
-    },
-  ];
+export default function Level({ handleLevelEnd, currentQuiz }: Iprops): ReactElement {
   let [questionIndex, setQuestionIndex] = useState<number>(0);
   let [answerList, setAnswerList] = useState<string[]>([]);
   let [wordsToChoseList, setWordsToChoseList] = useState<string[]>(
-    questions[questionIndex].words
+    currentQuiz.questions[questionIndex].words
   );
 
   function handleAdd(word: string, index: number): void {
@@ -51,11 +33,14 @@ export default function Level({ handleLevelEnd }: Iprops): ReactElement {
     setWordsToChoseList([...wordsToChoseList, word]);
   }
   useEffect(() => {
-    if (questions[questionIndex].correct.toString() === answerList.toString()) {
-      if (questionIndex === questions.length - 1) {
+    if (
+      currentQuiz.questions[questionIndex].correct.toString() ===
+      answerList.toString()
+    ) {
+      if (questionIndex === currentQuiz.questions.length - 1) {
         handleLevelEnd();
       }
-      setWordsToChoseList(() => questions[questionIndex + 1].words);
+      setWordsToChoseList(() => currentQuiz.questions[questionIndex + 1].words);
       setAnswerList(() => []);
       setQuestionIndex((previous) => previous + 1);
     }
@@ -65,8 +50,12 @@ export default function Level({ handleLevelEnd }: Iprops): ReactElement {
 
   return (
     <div className=" justify-evenly flex items-center flex-col h-5/6">
-      <div className="m-2 mt-10">{questions[questionIndex].question}</div>
-      <div className="text-3xl m-10">{questions[questionIndex].sentence}</div>
+      <div className="m-2 mt-10">
+        {currentQuiz.questions[questionIndex].question}
+      </div>
+      <div className="text-3xl m-10">
+        {currentQuiz.questions[questionIndex].sentence}
+      </div>
       <div className="flex flex-wrap border w-10/12 h-52 shadow-sm m-5">
         {answerList.map(
           (el: string, index: number): ReactElement => (
