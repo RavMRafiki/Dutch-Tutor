@@ -1,5 +1,5 @@
 # Dutch-Tutor
-Dutch-Tutor is a comprehensive language learning app specifically designed to help individuals learn and master the Dutch language, from level A1 (beginner) to level C2 (proficient). App is build with React Typescript and Tailwind
+Dutch-Tutor is a comprehensive language learning app specifically designed to help individuals learn and master the Dutch language, from level A1 (beginner) to level C2 (proficient). App was built with React Typescript and Tailwind
 
 
 Try it Here: https://ravmrafiki.github.io/Dutch-Tutor/
