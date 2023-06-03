@@ -46,7 +46,6 @@ export default function Level({
       currentQuiz.questions[questionIndex].correct.toString() ===
       answerList.toString()
     ) {
-      console.log(score);
       if (questionIndex === currentQuiz.questions.length - 1) {
         handleLevelEnd(
           score + Number(usedHint),
@@ -57,7 +56,6 @@ export default function Level({
       setWordsToChoseList(() => currentQuiz.questions[questionIndex + 1].words);
       setAnswerList(() => []);
       setQuestionIndex((previous) => previous + 1);
-      console.log(score, usedHint);
       if (usedHint) setScore((prev) => prev + 1);
       setUsedHint(false);
       setShowHint(false);
