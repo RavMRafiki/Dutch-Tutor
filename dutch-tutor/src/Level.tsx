@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef } from "react";
+import { ReactElement, useEffect} from "react";
 import { useState } from "react";
 import Word from "./Word";
 import Hint from "./Hint";
@@ -101,7 +101,7 @@ export default function Level({
           setUsedHint(true);
           setShowHint((prev) => !prev);
         }}
-        className=" w-10/12 p-2 bg-gradient-to-r from-green-200 to-teal-500 rounded-xl m-1 text-2xl font-bold border-slate-800 border shadow-md hover:text-white"
+        className="w-10/12 p-2 bg-gradient-to-r from-green-200 to-teal-500 rounded-xl m-1 text-2xl font-bold border-slate-800 border shadow-md hover:text-white"
       >
         Give Up
       </button>
