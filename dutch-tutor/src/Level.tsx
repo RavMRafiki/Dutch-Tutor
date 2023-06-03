@@ -65,7 +65,7 @@ export default function Level({
   }, [answerList]);
 
   return (
-    <div className=" justify-evenly flex items-center flex-col h-5/6">
+    <div className=" w-screen h-screen justify-evenly flex items-center flex-col -pt-5 dark:text-white dark:bg-emerald-950">
       <div className="m-2 mt-10">
         {currentQuiz.questions[questionIndex].question}
       </div>
@@ -101,7 +101,7 @@ export default function Level({
           setUsedHint(true);
           setShowHint((prev) => !prev);
         }}
-        className="w-10/12 p-2 bg-gradient-to-r from-green-200 to-teal-500 rounded-xl m-1 text-2xl font-bold border-slate-800 border shadow-md hover:text-white"
+        className="w-10/12 p-2 bg-gradient-to-r from-green-200 to-teal-500 rounded-xl m-1 text-2xl font-bold border-slate-800 border shadow-md hover:text-white dark:from-green-700 dark:to-teal-950 dark:border-white"
       >
         Give Up
       </button>

@@ -1256,6 +1256,7 @@ function App() {
   const [finishedQuizName, setFinishedQuizName] = useState<string>("QuizName");
   const [finishedQuizScore, setFinishedQuizScore] = useState<number>(0);
   const [finishedQuizMaxScore, setFinishedQuizMaxScore] = useState<number>(0);
+  const [useDarkMode, setUseDarkMode] = useState<boolean>(false);
   function handleBackToMenu() {
     setGameState(IGameState.StartMenu);
   }
@@ -1270,11 +1271,18 @@ function App() {
     setGameState(IGameState.Started);
   }
   function handleGameReset(): void {
+    setGameState(IGameState.StartMenu);
     setGameResets((prev) => (prev += 1));
   }
+  function handleChangeDarkMode(): void {
+    setUseDarkMode((prev) => !prev);
+  }
   return (
-    <div className="h-screen">
-      <Navbar handleGameReset={() => handleGameReset()} />
+    <div className={`h-screen   ${useDarkMode ? "dark" : ""} `}>
+      <Navbar
+        handleGameReset={() => handleGameReset()}
+        handleChangeDarkMode={() => handleChangeDarkMode()}
+      />
       {gameState == IGameState.Started ? (
         <Level
           handleLevelEnd={(score: number, maxscore: number, name: string) =>

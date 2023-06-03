@@ -14,7 +14,7 @@ export default function LevelEnd({
   name,
 }: IProps): ReactElement {
   return (
-    <div className="text-center bg-gradient-to-b from-slate-200 to-white h-5/6 flex flex-col justify-evenly -mt-5">
+    <div className="dark:text-white h-screen text-center bg-gradient-to-b from-slate-200 to-white  flex flex-col justify-evenly dark:from-emerald-950 dark:to-emerald-900">
       <div className="">
         <div className=" text-transparent text-4xl md:text-9xl bg-clip-text font-bold m-5 bg-gradient-to-r from-green-200 to-teal-500 pb-4">
           Congratulations{" "}
@@ -39,7 +39,7 @@ export default function LevelEnd({
 
       <button
         onClick={() => handleGoToMenu()}
-        className="p-2 bg-gradient-to-r from-green-200 to-teal-500 rounded-xl m-1 text-2xl font-bold border-slate-800 border shadow-md hover:text-white"
+        className="p-2 bg-gradient-to-r from-green-200 to-teal-500 rounded-xl m-1 text-2xl font-bold border-slate-800 border shadow-md hover:text-white dark:from-green-700 dark:to-teal-950 dark:border-white"
       >
         Go back to menu
       </button>
