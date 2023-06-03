@@ -715,6 +715,7 @@ enum IGameState {
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState<number>(1);
   const [gameState, setGameState] = useState<IGameState>(IGameState.StartMenu);
+  const [gameResets, setGameResets] = useState(0);
   function handleBackToMenu() {
     setGameState(IGameState.StartMenu);
   }
@@ -725,13 +726,17 @@ function App() {
     setCurrentQuestion(index);
     setGameState(IGameState.Started);
   }
+  function handleGameReset(): void {
+    setGameResets((prev) => (prev += 1));
+  }
   return (
     <div className="h-screen">
-      <Navbar />
+      <Navbar handleGameReset={() => handleGameReset()} />
       {gameState == IGameState.Started ? (
         <Level
           handleLevelEnd={() => handleGameEnd()}
           currentQuiz={Questions[currentQuestion]}
+          key={gameResets}
         />
       ) : gameState === IGameState.Finished ? (
         <LevelEnd handleGoToMenu={() => handleBackToMenu()} />

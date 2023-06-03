@@ -1,6 +1,7 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useRef } from "react";
 import { useState } from "react";
 import Word from "./Word";
+import Hint from "./Hint";
 
 interface IQuestion {
   typeofquest: string;
@@ -17,12 +18,17 @@ interface Iprops {
   handleLevelEnd: Function;
   currentQuiz: IQuiz;
 }
-export default function Level({ handleLevelEnd, currentQuiz }: Iprops): ReactElement {
-  let [questionIndex, setQuestionIndex] = useState<number>(0);
-  let [answerList, setAnswerList] = useState<string[]>([]);
-  let [wordsToChoseList, setWordsToChoseList] = useState<string[]>(
+export default function Level({
+  handleLevelEnd,
+  currentQuiz,
+}: Iprops): ReactElement {
+  const [questionIndex, setQuestionIndex] = useState<number>(0);
+  const [answerList, setAnswerList] = useState<string[]>([]);
+  const [wordsToChoseList, setWordsToChoseList] = useState<string[]>(
     currentQuiz.questions[questionIndex].words
   );
+  const [usedHint, setUsedHint] = useState<boolean>(false);
+  const [showHint, setShowHint] = useState(false)
 
   function handleAdd(word: string, index: number): void {
     setAnswerList([...answerList, word]);
@@ -43,6 +49,8 @@ export default function Level({ handleLevelEnd, currentQuiz }: Iprops): ReactEle
       setWordsToChoseList(() => currentQuiz.questions[questionIndex + 1].words);
       setAnswerList(() => []);
       setQuestionIndex((previous) => previous + 1);
+      setUsedHint(false);
+      setShowHint(false);
     }
 
     return () => {};
@@ -55,8 +63,13 @@ export default function Level({ handleLevelEnd, currentQuiz }: Iprops): ReactEle
       </div>
       <div className="text-3xl m-10">
         {currentQuiz.questions[questionIndex].sentence}
+        {showHint && (
+          <Hint
+            answer={currentQuiz.questions[questionIndex].correct.join(" ")}
+          />
+        )}
       </div>
-      <div className="flex flex-wrap border w-10/12 h-52 shadow-sm m-5">
+      <div className="flex flex-wrap border w-10/12 h-52 shadow-sm m-5 rounded-xl">
         {answerList.map(
           (el: string, index: number): ReactElement => (
             <Word
@@ -75,6 +88,15 @@ export default function Level({ handleLevelEnd, currentQuiz }: Iprops): ReactEle
           )
         )}
       </div>
+      <button
+        onClick={() => {
+          setUsedHint(true);
+          setShowHint((prev) => !prev);
+        }}
+        className=" w-10/12 p-2 bg-gradient-to-r from-green-200 to-teal-500 rounded-xl m-1 text-2xl font-bold border-slate-800 border shadow-md hover:text-white"
+      >
+        Give Up
+      </button>
     </div>
   );
 }
