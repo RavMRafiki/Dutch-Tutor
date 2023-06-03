@@ -9,8 +9,8 @@ export default function LevelChoose({ levelNames, handleChoose }: IProps): React
     <div className=" lg:w-3/6 xl:w-1/3 mx-auto">
       <ul className="flex flex-col justify-center text-center flex-shrink-0">
         {levelNames.map((el, idx) => (
-          <li>
-            <LevelChooseElement name={el} index={idx} handleChoose={handleChoose}/>
+          <li key={idx}>
+            <LevelChooseElement name={el} index={idx} handleChoose={handleChoose} key={idx}/>
           </li>
         ))}
       </ul>

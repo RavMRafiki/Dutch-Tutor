@@ -715,11 +715,17 @@ enum IGameState {
 function App() {
   const [currentQuestion, setCurrentQuestion] = useState<number>(1);
   const [gameState, setGameState] = useState<IGameState>(IGameState.StartMenu);
-  const [gameResets, setGameResets] = useState(0);
+  const [gameResets, setGameResets] = useState<number>(0);
+  const [finishedQuizName, setFinishedQuizName] = useState<string>("QuizName");
+  const [finishedQuizScore, setFinishedQuizScore] = useState<number>(0);
+  const [finishedQuizMaxScore, setFinishedQuizMaxScore] = useState<number>(0);
   function handleBackToMenu() {
     setGameState(IGameState.StartMenu);
   }
-  function handleGameEnd() {
+  function handleGameEnd(score: number, maxscore: number, name: string): void {
+    setFinishedQuizName(name);
+    setFinishedQuizScore(score);
+    setFinishedQuizMaxScore(maxscore);
     setGameState(IGameState.Finished);
   }
   function handleGameStart(index: number): void {
@@ -734,12 +740,15 @@ function App() {
       <Navbar handleGameReset={() => handleGameReset()} />
       {gameState == IGameState.Started ? (
         <Level
-          handleLevelEnd={() => handleGameEnd()}
+          handleLevelEnd={(score: number, maxscore: number, name: string) =>
+            handleGameEnd(score, maxscore, name)
+          }
           currentQuiz={Questions[currentQuestion]}
+          quizname={quiznames[currentQuestion]}
           key={gameResets}
         />
       ) : gameState === IGameState.Finished ? (
-        <LevelEnd handleGoToMenu={() => handleBackToMenu()} />
+        <LevelEnd handleGoToMenu={() => handleBackToMenu()} name={finishedQuizName} score={finishedQuizScore} maxScore={finishedQuizMaxScore}/>
       ) : (
         <LevelChoose levelNames={quiznames} handleChoose={handleGameStart} />
       )}

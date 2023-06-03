@@ -17,10 +17,12 @@ interface IQuiz {
 interface Iprops {
   handleLevelEnd: Function;
   currentQuiz: IQuiz;
+  quizname: string;
 }
 export default function Level({
   handleLevelEnd,
   currentQuiz,
+  quizname,
 }: Iprops): ReactElement {
   const [questionIndex, setQuestionIndex] = useState<number>(0);
   const [answerList, setAnswerList] = useState<string[]>([]);
@@ -28,7 +30,8 @@ export default function Level({
     currentQuiz.questions[questionIndex].words
   );
   const [usedHint, setUsedHint] = useState<boolean>(false);
-  const [showHint, setShowHint] = useState(false)
+  const [showHint, setShowHint] = useState<boolean>(false);
+  const [score, setScore] = useState<number>(0);
 
   function handleAdd(word: string, index: number): void {
     setAnswerList([...answerList, word]);
@@ -43,12 +46,19 @@ export default function Level({
       currentQuiz.questions[questionIndex].correct.toString() ===
       answerList.toString()
     ) {
+      console.log(score);
       if (questionIndex === currentQuiz.questions.length - 1) {
-        handleLevelEnd();
+        handleLevelEnd(
+          score + Number(usedHint),
+          currentQuiz.questions.length,
+          quizname
+        );
       }
       setWordsToChoseList(() => currentQuiz.questions[questionIndex + 1].words);
       setAnswerList(() => []);
       setQuestionIndex((previous) => previous + 1);
+      console.log(score, usedHint);
+      if (usedHint) setScore((prev) => prev + 1);
       setUsedHint(false);
       setShowHint(false);
     }
