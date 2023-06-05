@@ -65,7 +65,7 @@ export default function Level({
   }, [answerList]);
 
   return (
-    <div className=" w-screen h-screen justify-evenly flex items-center flex-col -pt-5 dark:text-white dark:bg-emerald-950">
+    <div className=" w-screen h-screen justify-evenly flex items-center flex-col pt-32 dark:text-white dark:bg-emerald-950">
       <div className="m-2 mt-10">
         {currentQuiz.questions[questionIndex].question}
       </div>
